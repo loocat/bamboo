@@ -1,0 +1,61 @@
+{
+  "m2m:conf": {
+    "cse": {
+      "id": "0.2.481.1.001.0001.00001",
+      "name": "crossflow",
+      "sp": "sfiot",
+      "bind": {
+        "http": {
+          "host": "localhost",
+          "port": 7070
+        },
+        "mqtt": {
+          "host": "localhost",
+          "port": 1883
+        }
+      },
+      "status": {
+        "keepAlive": 2,
+        "save": false
+      },
+      "mgmt": {
+        "rules": {
+          "retain": { "day": 14 }
+        }
+      },
+      "labels": "daq=false&mgmt=true"
+    },
+    "db": "MySQL",
+    "MySQL": {
+      "host": "localhost",
+      "port": 3306,
+      "user": "root",
+      "password": "myroot",
+      "database": "crossflow",
+      "waitForConnections": true,
+      "connectionLimit": 20
+    },
+    "MongoDB": {
+      "host": "localhost",
+      "port": 27017,
+      "user": "root",
+      "password": "myroot",
+      "database": "crossflow",
+      "maxPoolSize": 20
+    },
+    "HANA": {
+      "host": "203.235.199.161",
+      "port": 30015,
+      "user": "ROOT",
+      "password": "Sap12346",
+      "maxPoolSize": 20
+    },
+    "logger": {
+      "isUseRemoteLog": false,
+      "consoleLevel": "debug",
+      "remoteLevel": "info",
+      "remoteHost": "localhost",
+      "remotePort": 5200
+    }
+  }
+}
