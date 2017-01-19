@@ -1053,23 +1053,26 @@ var broadcast = function (broker, cse) {
     client.publish(cseTopic, msg, { retain: true });
   }
 
-  var client = require('mqtt').connect(broker);
-  client.on('connect', function () {
-    client.subscribe(broadcastPrefix + '#');
-    broadcast();
-  });
-  client.on('message', function (top, msg) {
-    if (cseTopic === top && (!msg || msg.length < 1)) {
+  // var client = require('mqtt').connect(broker);
+  var client = mqttAgent.getClient(broker);
+  if (client) {
+    client.on('connect', function () {
+      client.subscribe(broadcastPrefix + '#');
       broadcast();
-    }
-    else if (cseType !== m2m.code.getCseTypeID('IN_CSE')) {
-      var tmp = JSON.parse(msg.toString());
-      if (tmp && tmp.cst === m2m.code.getCseTypeID('IN_CSE') && tmp.rn === incse.rn) {
-        incse = tmp;
-        register(incse, cse);
+    });
+    client.on('message', function (top, msg) {
+      if (cseTopic === top && (!msg || msg.length < 1)) {
+        broadcast();
       }
-    }
-  });
+      else if (cseType !== m2m.code.getCseTypeID('IN_CSE')) {
+        var tmp = JSON.parse(msg.toString());
+        if (tmp && tmp.cst === m2m.code.getCseTypeID('IN_CSE') && tmp.rn === incse.rn) {
+          incse = tmp;
+          register(incse, cse);
+        }
+      }
+    });
+  }
 }
 
 /**
