@@ -6,12 +6,12 @@
       "sp": "sfiot",
       "bind": {
         "http": {
-          "host": "localhost",
+          "host": "crossflow.heroku.com",
           "port": 7070
         },
         "mqtt": {
-          "host": "localhost",
-          "port": 1883
+          "host": "m12.cloudmqtt.com",
+          "port": 16452
         }
       },
       "status": {
@@ -27,11 +27,11 @@
     },
     "db": "MySQL",
     "MySQL": {
-      "host": "localhost",
+      "host": "us-cdbr-iron-east-04.cleardb.net",
       "port": 3306,
-      "user": "root",
-      "password": "myroot",
-      "database": "crossflow",
+      "user": "b43846b27cc5a9",
+      "password": "fb52f96d",
+      "database": "heroku_0ee8cc97d9d0ef9",
       "waitForConnections": true,
       "connectionLimit": 20
     },
