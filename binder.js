@@ -265,31 +265,34 @@ var Binder = function () {
     }
   };
 
-  var MqttBinder = function (myID, topicClass, share) {
+  var MqttBinder = function (myID, options) {
+    if (!options) options = {};
 
     var self = this;
 
-    if (!topicClass) topicClass = '/oneM2M';
-    else topicClass = ('/' + topicClass).replace('//', '/');
+    if (!options.topicClass) options.topicClass = '/oneM2M';
+    else options.topicClass = ('/' + options.topicClass).replace('//', '/');
 
     var clientOptions = function (id) {
       return {
-        clientId: 'mqttjs_' + id + '_' + Math.random().toString(16).substr(2, 8),
+        clientId: id,
         clean: false,
         incomingStore: new mqtt.Store(),
-        outgoingStore: new mqtt.Store()
+        outgoingStore: new mqtt.Store(),
+        username: options.username,
+        password: options.password
       };
     }
 
     var qos = { subscribe: 1, publish: 1 };
 
     var getTopicSend = function (type, to, ext) {
-      var patternTopicSend = topicClass + '/%s/%s/%s%s';
+      var patternTopicSend = options.topicClass + '/%s/%s/%s%s';
       return util.format(patternTopicSend, type, myID, to, (typeof ext === 'undefined') ? '' : '/' + ext);
     }
 
     var getTopicReceive = function (type, from, ext) {
-      var patternTopicReceive = topicClass + '/%s/%s/%s%s';
+      var patternTopicReceive = options.topicClass + '/%s/%s/%s%s';
       return util.format(patternTopicReceive, type, from, myID, (typeof ext === 'undefined') ? '/#' : '/' + ext);
     }
     
@@ -455,7 +458,7 @@ var Binder = function () {
     var getClient = function (r) {
       var client = _clients[r.broker]; 
       if (!client) {
-        var topic = (share ? '$share:' + myID + ':' : '') + getTopicReceive('+', r.target || '+');
+        var topic = (options.share ? '$share:' + myID + ':' : '') + getTopicReceive('+', r.target || '+');
         client = mqtt.connect(r.broker, clientOptions(r.cseid));
         client.on('connect', () => {
           client.subscribe(topic, {qos: qos.subscribe}, (err, granted) => {
@@ -552,7 +555,7 @@ var Binder = function () {
         var ttt = [ count(_incoming[ii]), count(_outgoing[ii]) ];
         if (ttt[0] > 0 || ttt[1] > 0) {
           if (first) {
-            console.log('\n' + topicClass + '________________________________________________________________________');
+            console.log('\n' + options.topicClass + '________________________________________________________________________');
             first = false;
           }
           console.log(ii, ' incoming', ttt[0]);

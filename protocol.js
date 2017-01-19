@@ -1149,8 +1149,12 @@ exports.init = function (options) {
       httpAgent.listen(bind.port, handleRequestPrimitive);
     }
     else if (protocol === 'mqtt') {
-      var share = require('querystring').parse(options.labels).share;
-      mqttAgent = new (require('./binder')).MqttBinder(options.id, null, share);
+      let mqttOptions = {
+        username: options.username,
+        password: options.password,
+        share: require('querystring').parse(options.labels).share
+      };
+      mqttAgent = new (require('./binder')).MqttBinder(options.id, mqttOptions);
       mqttAgent.listen(uri, '+', handleRequestPrimitive);
       broker = uri;
     }
