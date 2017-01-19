@@ -284,6 +284,8 @@ var Binder = function () {
       };
     }
 
+    console.log(clientOptions(myID));
+
     var qos = { subscribe: 1, publish: 1 };
 
     var getTopicSend = function (type, to, ext) {

@@ -12,8 +12,8 @@
         "mqtt": {
           "host": "m12.cloudmqtt.com",
           "port": 16452,
-          "useranem": "koprebbo",
-          "password": "rdHrHnXjkZDG"
+          "username": "hjkim",
+          "password": "hjkim"
         }
       },
       "status": {

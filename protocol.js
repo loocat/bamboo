@@ -1150,8 +1150,8 @@ exports.init = function (options) {
     }
     else if (protocol === 'mqtt') {
       let mqttOptions = {
-        username: options.username,
-        password: options.password,
+        username: bind.username,
+        password: bind.password,
         share: require('querystring').parse(options.labels).share
       };
       mqttAgent = new (require('./binder')).MqttBinder(options.id, mqttOptions);

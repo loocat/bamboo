@@ -1,0 +1,134 @@
+{"level":"info","message":"worker 6556 running in MGMT mode","timestamp":"2017-01-19 21:04:42.874"}
+{"level":"info","message":"worker 24700 running in PROTOCOL mode","timestamp":"2017-01-19 21:04:42.862"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 21:04:45.884"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 21:04:47.125"}
+{"level":"info","message":"worker 24700 died (1). restarting...","timestamp":"2017-01-19 21:04:47.793"}
+{"level":"info","message":"worker 23576 running in PROTOCOL mode","timestamp":"2017-01-19 21:04:48.505"}
+{"level":"info","message":"worker 30616 running in MGMT mode","timestamp":"2017-01-19 21:06:09.768"}
+{"level":"info","message":"worker 23504 running in PROTOCOL mode","timestamp":"2017-01-19 21:06:09.755"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 21:06:11.816"}
+{"level":"info","message":"worker 24608 running in MGMT mode","timestamp":"2017-01-19 21:06:24.556"}
+{"level":"info","message":"worker 24596 running in PROTOCOL mode","timestamp":"2017-01-19 21:06:24.563"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 21:06:26.477"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 21:06:27.104"}
+{"level":"info","message":"worker 24596 died (1). restarting...","timestamp":"2017-01-19 21:06:27.427"}
+{"level":"info","message":"worker 24620 running in MGMT mode","timestamp":"2017-01-19 21:06:59.342"}
+{"level":"info","message":"worker 25720 running in PROTOCOL mode","timestamp":"2017-01-19 21:06:59.346"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 21:07:01.440"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 21:07:02.087"}
+{"level":"info","message":"Inserting Completed. crossflow","timestamp":"2017-01-19 21:07:07.658"}
+{"level":"info","message":"[IN_CSE] created","timestamp":"2017-01-19 21:07:07.659"}
+{"level":"info","message":"worker 21764 running in PROTOCOL mode","timestamp":"2017-01-19 21:07:22.329"}
+{"level":"info","message":"worker 27788 running in MGMT mode","timestamp":"2017-01-19 21:07:22.341"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 21:07:24.165"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 21:07:24.776"}
+{"level":"info","message":"Updating Completed. crossflow","timestamp":"2017-01-19 21:07:26.037"}
+{"level":"info","message":"[IN_CSE] updated","timestamp":"2017-01-19 21:07:26.038"}
+{"level":"info","message":"worker 21764 died (1). restarting...","timestamp":"2017-01-19 21:07:27.587"}
+{"level":"info","message":"worker 26600 running in PROTOCOL mode","timestamp":"2017-01-19 21:07:28.302"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 21:07:30.531"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 21:07:30.927"}
+{"level":"info","message":"worker 29280 running in MGMT mode","timestamp":"2017-01-19 21:29:12.819"}
+{"level":"info","message":"worker 28184 running in PROTOCOL mode","timestamp":"2017-01-19 21:29:12.818"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 21:29:14.731"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 21:29:15.347"}
+{"level":"info","message":"Updating Completed. crossflow","timestamp":"2017-01-19 21:29:17.104"}
+{"level":"info","message":"[IN_CSE] updated","timestamp":"2017-01-19 21:29:17.105"}
+{"level":"info","message":"worker 28184 died (1). restarting...","timestamp":"2017-01-19 21:29:19.157"}
+{"level":"info","message":"worker 29152 running in PROTOCOL mode","timestamp":"2017-01-19 21:29:19.886"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 21:29:22.068"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 21:29:22.460"}
+{"level":"info","message":"Updating Completed. crossflow","timestamp":"2017-01-19 21:29:26.648"}
+{"level":"info","message":"[IN_CSE] updated","timestamp":"2017-01-19 21:29:26.650"}
+{"level":"info","message":"worker 29152 died (1). restarting...","timestamp":"2017-01-19 21:29:28.435"}
+{"level":"info","message":"worker 16092 running in MGMT mode","timestamp":"2017-01-19 21:33:42.374"}
+{"level":"info","message":"worker 24596 running in PROTOCOL mode","timestamp":"2017-01-19 21:33:42.370"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 21:33:46.282"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 21:33:46.899"}
+{"level":"info","message":"Updating Completed. crossflow","timestamp":"2017-01-19 21:33:48.182"}
+{"level":"info","message":"[IN_CSE] updated","timestamp":"2017-01-19 21:33:48.184"}
+{"level":"info","message":"worker 24596 died (1). restarting...","timestamp":"2017-01-19 21:33:49.758"}
+{"level":"info","message":"worker 28396 running in PROTOCOL mode","timestamp":"2017-01-19 21:33:50.507"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 21:33:53.233"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 21:33:53.626"}
+{"level":"info","message":"worker 29280 running in PROTOCOL mode","timestamp":"2017-01-19 21:37:27.169"}
+{"level":"info","message":"worker 29752 running in MGMT mode","timestamp":"2017-01-19 21:37:27.198"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 21:37:29.750"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 21:37:30.375"}
+{"level":"info","message":"Updating Completed. crossflow","timestamp":"2017-01-19 21:37:36.437"}
+{"level":"info","message":"[IN_CSE] updated","timestamp":"2017-01-19 21:37:36.439"}
+{"level":"info","message":"worker 29280 died (1). restarting...","timestamp":"2017-01-19 21:37:38.004"}
+{"level":"info","message":"worker 26692 running in PROTOCOL mode","timestamp":"2017-01-19 21:37:38.723"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 21:37:45.143"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 21:37:45.536"}
+{"level":"info","message":"Updating Completed. crossflow","timestamp":"2017-01-19 21:37:50.529"}
+{"level":"info","message":"[IN_CSE] updated","timestamp":"2017-01-19 21:37:50.531"}
+{"level":"info","message":"worker 26692 died (1). restarting...","timestamp":"2017-01-19 21:37:59.278"}
+{"message":"Quit inactivity timeout","stack":"Error: Quit inactivity timeout\n    at Quit.<anonymous> (G:\\Discussion\\SmartFactory\\dev\\heroku\\node_modules\\mysql\\lib\\protocol\\Protocol.js:160:17)\n    at emitNone (events.js:86:13)\n    at Quit.emit (events.js:185:7)\n    at Quit._onTimeout (G:\\Discussion\\SmartFactory\\dev\\heroku\\node_modules\\mysql\\lib\\protocol\\sequences\\Sequence.js:127:8)\n    at ontimeout (timers.js:365:14)\n    at tryOnTimeout (timers.js:237:5)\n    at Timer.listOnTimeout (timers.js:207:5)\n    --------------------\n    at Protocol._enqueue (G:\\Discussion\\SmartFactory\\dev\\heroku\\node_modules\\mysql\\lib\\protocol\\Protocol.js:141:48)\n    at Protocol.quit (G:\\Discussion\\SmartFactory\\dev\\heroku\\node_modules\\mysql\\lib\\protocol\\Protocol.js:88:23)\n    at PoolConnection.end (G:\\Discussion\\SmartFactory\\dev\\heroku\\node_modules\\mysql\\lib\\Connection.js:255:18)\n    at Pool._purgeConnection (G:\\Discussion\\SmartFactory\\dev\\heroku\\node_modules\\mysql\\lib\\Pool.js:259:16)\n    at Pool.end (G:\\Discussion\\SmartFactory\\dev\\heroku\\node_modules\\mysql\\lib\\Pool.js:180:10)\n    at Object.module.exports.end (G:\\Discussion\\SmartFactory\\dev\\heroku\\mysql.js:648:24)\n    at closeDB (G:\\Discussion\\SmartFactory\\dev\\heroku\\mgmt.js:30:8)\n    at Object.exports.init (G:\\Discussion\\SmartFactory\\dev\\heroku\\mgmt.js:24:3)\n    at G:\\Discussion\\SmartFactory\\dev\\heroku\\app.js:92:19\n    at G:\\Discussion\\SmartFactory\\dev\\heroku\\mysql.js:45:7","code":"PROTOCOL_SEQUENCE_TIMEOUT","fatal":true,"timeout":30000,"level":"error","timestamp":"2017-01-19 21:37:59.721"}
+{"level":"info","message":"worker 26536 running in PROTOCOL mode","timestamp":"2017-01-19 21:38:00.061"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 21:38:03.427"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 21:38:03.820"}
+{"level":"info","message":"Updating Completed. crossflow","timestamp":"2017-01-19 21:38:08.705"}
+{"level":"info","message":"[IN_CSE] updated","timestamp":"2017-01-19 21:38:08.706"}
+{"level":"info","message":"worker 26536 died (1). restarting...","timestamp":"2017-01-19 21:38:10.314"}
+{"level":"info","message":"worker 26984 running in PROTOCOL mode","timestamp":"2017-01-19 22:11:43.483"}
+{"level":"info","message":"worker 11876 running in MGMT mode","timestamp":"2017-01-19 22:11:43.450"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 22:11:46.588"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 22:11:47.864"}
+{"level":"info","message":"Updating Completed. crossflow","timestamp":"2017-01-19 22:11:50.487"}
+{"level":"info","message":"[IN_CSE] updated","timestamp":"2017-01-19 22:11:50.489"}
+{"level":"info","message":"worker 26984 died (1). restarting...","timestamp":"2017-01-19 22:11:52.845"}
+{"level":"info","message":"worker 29976 running in PROTOCOL mode","timestamp":"2017-01-19 22:11:53.561"}
+{"level":"info","message":"worker 25592 running in MGMT mode","timestamp":"2017-01-19 22:12:08.678"}
+{"level":"info","message":"worker 28912 running in PROTOCOL mode","timestamp":"2017-01-19 22:12:08.672"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 22:12:12.530"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 22:12:13.172"}
+{"level":"info","message":"Updating Completed. crossflow","timestamp":"2017-01-19 22:12:14.541"}
+{"level":"info","message":"[IN_CSE] updated","timestamp":"2017-01-19 22:12:14.542"}
+{"level":"info","message":"worker 28912 died (1). restarting...","timestamp":"2017-01-19 22:12:16.661"}
+{"level":"info","message":"worker 31412 running in PROTOCOL mode","timestamp":"2017-01-19 22:12:17.388"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 22:12:19.243"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 22:12:19.630"}
+{"level":"info","message":"Updating Completed. crossflow","timestamp":"2017-01-19 22:12:21.272"}
+{"level":"info","message":"[IN_CSE] updated","timestamp":"2017-01-19 22:12:21.274"}
+{"level":"info","message":"worker 31412 died (1). restarting...","timestamp":"2017-01-19 22:12:25.999"}
+{"level":"info","message":"worker 29156 running in PROTOCOL mode","timestamp":"2017-01-19 22:12:26.717"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 22:12:28.512"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 22:12:28.906"}
+{"level":"info","message":"Updating Completed. crossflow","timestamp":"2017-01-19 22:12:30.370"}
+{"level":"info","message":"[IN_CSE] updated","timestamp":"2017-01-19 22:12:30.371"}
+{"level":"info","message":"worker 29156 died (1). restarting...","timestamp":"2017-01-19 22:12:36.345"}
+{"level":"info","message":"worker 28816 running in PROTOCOL mode","timestamp":"2017-01-19 22:12:37.075"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 22:12:39.377"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 22:12:39.767"}
+{"message":"Quit inactivity timeout","stack":"Error: Quit inactivity timeout\n    at Quit.<anonymous> (G:\\Discussion\\SmartFactory\\dev\\heroku\\node_modules\\mysql\\lib\\protocol\\Protocol.js:160:17)\n    at emitNone (events.js:86:13)\n    at Quit.emit (events.js:185:7)\n    at Quit._onTimeout (G:\\Discussion\\SmartFactory\\dev\\heroku\\node_modules\\mysql\\lib\\protocol\\sequences\\Sequence.js:127:8)\n    at ontimeout (timers.js:365:14)\n    at tryOnTimeout (timers.js:237:5)\n    at Timer.listOnTimeout (timers.js:207:5)\n    --------------------\n    at Protocol._enqueue (G:\\Discussion\\SmartFactory\\dev\\heroku\\node_modules\\mysql\\lib\\protocol\\Protocol.js:141:48)\n    at Protocol.quit (G:\\Discussion\\SmartFactory\\dev\\heroku\\node_modules\\mysql\\lib\\protocol\\Protocol.js:88:23)\n    at PoolConnection.end (G:\\Discussion\\SmartFactory\\dev\\heroku\\node_modules\\mysql\\lib\\Connection.js:255:18)\n    at Pool._purgeConnection (G:\\Discussion\\SmartFactory\\dev\\heroku\\node_modules\\mysql\\lib\\Pool.js:259:16)\n    at Pool.end (G:\\Discussion\\SmartFactory\\dev\\heroku\\node_modules\\mysql\\lib\\Pool.js:180:10)\n    at Object.module.exports.end (G:\\Discussion\\SmartFactory\\dev\\heroku\\mysql.js:648:24)\n    at closeDB (G:\\Discussion\\SmartFactory\\dev\\heroku\\mgmt.js:30:8)\n    at Object.exports.init (G:\\Discussion\\SmartFactory\\dev\\heroku\\mgmt.js:24:3)\n    at G:\\Discussion\\SmartFactory\\dev\\heroku\\app.js:92:19\n    at G:\\Discussion\\SmartFactory\\dev\\heroku\\mysql.js:45:7","code":"PROTOCOL_SEQUENCE_TIMEOUT","fatal":true,"timeout":30000,"level":"error","timestamp":"2017-01-19 22:12:43.204"}
+{"level":"info","message":"worker 25916 running in MGMT mode","timestamp":"2017-01-19 22:13:07.209"}
+{"level":"info","message":"worker 25848 running in PROTOCOL mode","timestamp":"2017-01-19 22:13:07.206"}
+{"level":"error","message":"db connection failed.","timestamp":"2017-01-19 22:13:09.940"}
+{"level":"error","message":"db connection failed.","timestamp":"2017-01-19 22:13:10.617"}
+{"level":"info","message":"worker 31456 running in PROTOCOL mode","timestamp":"2017-01-19 22:13:22.386"}
+{"level":"info","message":"worker 28752 running in MGMT mode","timestamp":"2017-01-19 22:13:22.391"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 22:13:24.284"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 22:13:24.914"}
+{"level":"info","message":"Updating Completed. crossflow","timestamp":"2017-01-19 22:13:26.338"}
+{"level":"info","message":"[IN_CSE] updated","timestamp":"2017-01-19 22:13:26.339"}
+{"level":"info","message":"worker 31456 died (1). restarting...","timestamp":"2017-01-19 22:13:27.950"}
+{"level":"info","message":"worker 26356 running in PROTOCOL mode","timestamp":"2017-01-19 22:15:19.831"}
+{"level":"info","message":"worker 28708 running in MGMT mode","timestamp":"2017-01-19 22:15:19.833"}
+{"level":"info","message":"[IN_CSE] //sfiot/koprebbo/crossflow","timestamp":"2017-01-19 22:15:22.236"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 22:15:22.881"}
+{"level":"info","message":"Inserting Completed. crossflow","timestamp":"2017-01-19 22:15:24.872"}
+{"level":"info","message":"[IN_CSE] created","timestamp":"2017-01-19 22:15:24.874"}
+{"level":"info","message":"worker 26356 died (1). restarting...","timestamp":"2017-01-19 22:15:26.415"}
+{"level":"info","message":"worker 11008 running in PROTOCOL mode","timestamp":"2017-01-19 22:15:27.167"}
+{"level":"info","message":"[IN_CSE] //sfiot/koprebbo/crossflow","timestamp":"2017-01-19 22:15:29.008"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 22:15:29.435"}
+{"level":"info","message":"Updating Completed. crossflow","timestamp":"2017-01-19 22:15:31.330"}
+{"level":"info","message":"[IN_CSE] updated","timestamp":"2017-01-19 22:15:31.332"}
+{"level":"info","message":"worker 24644 running in MGMT mode","timestamp":"2017-01-19 22:16:23.386"}
+{"level":"info","message":"worker 31456 running in PROTOCOL mode","timestamp":"2017-01-19 22:16:23.386"}
+{"level":"info","message":"[IN_CSE] //sfiot/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-19 22:16:25.488"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-19 22:16:26.108"}
+{"level":"info","message":"Inserting Completed. crossflow","timestamp":"2017-01-19 22:16:29.627"}
+{"level":"info","message":"[IN_CSE] created","timestamp":"2017-01-19 22:16:29.628"}
+{"level":"info","message":"worker 31456 died (1). restarting...","timestamp":"2017-01-19 22:16:33.357"}
