@@ -1148,8 +1148,9 @@ exports.init = function (options) {
     var uri = protocol + "://" + bind.host + (bind.port ? ':' + bind.port : '');
 
     if (protocol === 'http') {
+      bind.port = process.env.PORT || bind.port;
       httpAgent = new (require('./binder')).HttpBinder(options.id);
-      httpAgent.listen(process.env.PORT || bind.port, handleRequestPrimitive);
+      httpAgent.listen(bind.port, handleRequestPrimitive);
     }
     else if (protocol === 'mqtt') {
       let mqttOptions = {
