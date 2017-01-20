@@ -25,7 +25,7 @@
           "retain": { "day": 14 }
         }
       },
-      "labels": "daq=false&mgmt=true"
+      "labels": "daq=false&mgmt=false"
     },
     "db": "MySQL",
     "MySQL": {

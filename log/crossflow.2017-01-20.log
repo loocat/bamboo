@@ -28,3 +28,8 @@
 {"level":"info","message":"Updating Completed. crossflow","timestamp":"2017-01-20 11:41:10.081"}
 {"level":"info","message":"[IN_CSE] updated","timestamp":"2017-01-20 11:41:10.084"}
 {"level":"info","message":"[/in-cse/Csmartphone_ae] mncse/55667","timestamp":"2017-01-20 11:41:25.207"}
+{"level":"info","message":"worker 23464 running in PROTOCOL mode","timestamp":"2017-01-20 11:54:00.434"}
+{"level":"info","message":"[IN_CSE] //herokuapp.com/0.2.481.1.001.0001.00001/crossflow","timestamp":"2017-01-20 11:54:02.599"}
+{"level":"info","message":"oneM2M protocol HTTP binder running at 7070 port","timestamp":"2017-01-20 11:54:03.217"}
+{"level":"info","message":"Updating Completed. crossflow","timestamp":"2017-01-20 11:54:05.227"}
+{"level":"info","message":"[IN_CSE] updated","timestamp":"2017-01-20 11:54:05.229"}
