@@ -7,7 +7,7 @@
       "bind": {
         "http": {
           "host": "crossflow.herokuapp.com",
-          "port": 80
+          "port": 7070
         },
         "mqtt": {
           "host": "m12.cloudmqtt.com",
