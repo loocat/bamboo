@@ -12,6 +12,7 @@
  * @file
  * @copyright 2015, SK Corp.
  */
+'use strict';
 
 var url = require('url');
 var http = require('http');
@@ -405,6 +406,9 @@ var Binder = function () {
       var resolved = resolve(poa);
       if (!poa) {
         resolved.id = myID;
+      }
+      if (!resolved.id) {
+        resolved.id = rqp.to.split('/')[1];
       }
       
       var topic = getTopicSend('req', resolved.id, rqp.cty);
