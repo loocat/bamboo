@@ -35,7 +35,7 @@
       "password": "fb52f96d",
       "database": "heroku_0ee8cc97d9d0ef9",
       "waitForConnections": true,
-      "connectionLimit": 20
+      "connectionLimit": 10
     },
     "MongoDB": {
       "host": "localhost",
