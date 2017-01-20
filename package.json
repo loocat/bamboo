@@ -24,7 +24,7 @@
   "main": "app.js",
   "devDependencies": {},
   "scripts": {
-    "start": "mkdir log; node app.js",
+    "start": "mkdir log && node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "SK",

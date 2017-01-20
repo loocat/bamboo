@@ -3,11 +3,11 @@
     "cse": {
       "id": "0.2.481.1.001.0001.00001",
       "name": "crossflow",
-      "sp": "sfiot",
+      "sp": "herokuapp.com",
       "bind": {
         "http": {
-          "host": "crossflow.heroku.com",
-          "port": 7070
+          "host": "crossflow.herokuapp.com",
+          "port": 80
         },
         "mqtt": {
           "host": "m12.cloudmqtt.com",
