@@ -1054,7 +1054,7 @@ var broadcast = function (broker, cse) {
   }
 
   // var client = require('mqtt').connect(broker);
-  var client = mqttAgent.getClient(broker);
+  var client = mqttAgent.getClient({broker: broker});
   if (client) {
     client.on('connect', function () {
       client.subscribe(broadcastPrefix + '#');
@@ -1149,7 +1149,7 @@ exports.init = function (options) {
 
     if (protocol === 'http') {
       httpAgent = new (require('./binder')).HttpBinder(options.id);
-      httpAgent.listen(bind.port, handleRequestPrimitive);
+      httpAgent.listen(process.env.PORT || bind.port, handleRequestPrimitive);
     }
     else if (protocol === 'mqtt') {
       let mqttOptions = {
