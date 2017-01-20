@@ -54,7 +54,7 @@
     },
     "logger": {
       "isUseRemoteLog": false,
-      "consoleLevel": "debug",
+      "consoleLevel": "info",
       "remoteLevel": "info",
       "remoteHost": "localhost",
       "remotePort": 5200
