@@ -415,48 +415,48 @@ exports.delete = function (path, fc, callback) {
   });
 }
 
-exports.discovery = function (path, fc, rcn, drt, order, callback) {
-  var lc = path.split('/').length;
-  if (lc < 1) {
-    log.debug('[discovery] Path is invalid. ' + path);
-    return;
-  }
-  if ([4, 5, 6, 8].indexOf(rcn) < 0) {  // check result content values for discovery
-    log.debug('[discovery] Result content is invalid. ' + rcn);
-    return;
-  }
+// exports.discovery = function (path, fc, rcn, drt, order, callback) {
+//   var lc = path.split('/').length;
+//   if (lc < 1) {
+//     log.debug('[discovery] Path is invalid. ' + path);
+//     return;
+//   }
+//   if ([4, 5, 6, 8].indexOf(rcn) < 0) {  // check result content values for discovery
+//     log.debug('[discovery] Result content is invalid. ' + rcn);
+//     return;
+//   }
 
-  var childResources = (rcn === 4 || rcn === 8) ? true : false;
-  var hierarchical = m2m.util.isStructured(path);
+//   var childResources = (rcn === 4 || rcn === 8) ? true : false;
+//   var hierarchical = m2m.util.isStructured(path);
 
-  dbPool.getConnection(function (err, conn) {
-    if (err) {
-      log.debug('db connection failed.');
-    }
-    if (conn) {
-      // 필터조건에 따른 다건 리소스 검색
-      var sql;
-      sql = util.format("SELECT %s FROM (SELECT get_lvl_lv(resourceid) AS resourceid, @level AS level FROM (SELECT @start_with:=%s, @resourceid:=@start_with, @level:=0) vars JOIN lv WHERE @resourceid IS NOT NULL) f JOIN lv d ON f.resourceid = d.resourceid",
-        childResources ? 'd.*' : ((drt === 2) ? 'd.resourceid' : 'd.path'), hierarchical ? '(SELECT resourceid FROM lv WHERE path = ?)' : '?');
-      var result = makeFC(path, fc, sql);
+//   dbPool.getConnection(function (err, conn) {
+//     if (err) {
+//       log.debug('db connection failed.');
+//     }
+//     if (conn) {
+//       // 필터조건에 따른 다건 리소스 검색
+//       var sql;
+//       sql = util.format("SELECT %s FROM (SELECT get_lvl_lv(resourceid) AS resourceid, @level AS level FROM (SELECT @start_with:=%s, @resourceid:=@start_with, @level:=0) vars JOIN lv WHERE @resourceid IS NOT NULL) f JOIN lv d ON f.resourceid = d.resourceid",
+//         childResources ? 'd.*' : ((drt === 2) ? 'd.resourceid' : 'd.path'), hierarchical ? '(SELECT resourceid FROM lv WHERE path = ?)' : '?');
+//       var result = makeFC(path, fc, sql);
 
-      result.sql = (!order) ? result.sql.replace(' LIMIT', ' ORDER BY path LIMIT') : result.sql.replace(' LIMIT', ' ORDER BY creationtime ' + order + ' LIMIT');
+//       result.sql = (!order) ? result.sql.replace(' LIMIT', ' ORDER BY path LIMIT') : result.sql.replace(' LIMIT', ' ORDER BY creationtime ' + order + ' LIMIT');
 
-      log.debug(result.sql, result.params);
-      conn.query(result.sql, result.params, function (err, rows) {
-        if (err) {
-          log.debug("Error discoverying : %s ", err);
-          if (callback) callback(true, err);
-        }
-        else {
-          log.debug('Discoverying Completed.');
-          if (callback) callback(false, rows);
-        }
-        conn.release();
-      });
-    }
-  });
-}
+//       log.debug(result.sql, result.params);
+//       conn.query(result.sql, result.params, function (err, rows) {
+//         if (err) {
+//           log.debug("Error discoverying : %s ", err);
+//           if (callback) callback(true, err);
+//         }
+//         else {
+//           log.debug('Discoverying Completed.');
+//           if (callback) callback(false, rows);
+//         }
+//         conn.release();
+//       });
+//     }
+//   });
+// }
 
 function makeFC(path, fc, sql) {
   var params = new Array();
