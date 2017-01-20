@@ -206,35 +206,26 @@ exports.retrieve = function (path, fc, callback) {
             }
             else {
               rowsWithoutCI = rows;
-              // conn.release();
+              sql = util.format("SELECT * FROM lv WHERE %s = ? AND resourcetype = 4", hierarchical ? 'parentpath' : 'parentid');
+              result = makeFC(path, fc, sql);
 
-              // dbPool.getConnection(function (err, conn) {
-              //   if (err) {
-              //     log.debug('db connection failed.');
-              //   }
-              //   if (conn) {
-                  sql = util.format("SELECT * FROM lv WHERE %s = ? AND resourcetype = 4", hierarchical ? 'parentpath' : 'parentid');
-                  result = makeFC(path, fc, sql);
+              result.sql += " ORDER BY creationtime DESC LIMIT 1";
 
-                  result.sql += " ORDER BY creationtime DESC LIMIT 1";
-
-                  log.debug(result.sql, result.params);
-                  conn.query(result.sql, result.params, function (err, rows) {
-                    if (err) {
-                      log.debug("Error retrieving : %s ", err);
-                      if (callback) callback(true, err);
-                    }
-                    else {
-                      log.debug('Retrieving Completed.');
-                      if (rows && rows.length > 0) {
-                        rowsWithoutCI.push(rows[0]);
-                      }
-                      if (callback) callback(false, rowsWithoutCI);
-                    }
-                    conn.release();
-                  });
-              //   }
-              // });
+              log.debug(result.sql, result.params);
+              conn.query(result.sql, result.params, function (err, rows) {
+                if (err) {
+                  log.debug("Error retrieving : %s ", err);
+                  if (callback) callback(true, err);
+                }
+                else {
+                  log.debug('Retrieving Completed.');
+                  if (rows && rows.length > 0) {
+                    rowsWithoutCI.push(rows[0]);
+                  }
+                  if (callback) callback(false, rowsWithoutCI);
+                }
+                conn.release();
+              });
             }
           });
         }
@@ -373,25 +364,23 @@ exports.delete = function (path, fc, callback) {
             conn.release();
           }
           else {
-            // for (var i = 1; i <= (9 - lc); i++) {
-              sql = "DELETE FROM lv WHERE path LIKE ?";
-              var params = [path + "/%"];
-              log.debug(sql, params);
-              conn.query(sql, params, function (err, res) {
-                if (err) {
-                  log.debug("Error child deleting : %s ", err);
-                  if (callback) callback(true, err);
+            sql = "DELETE FROM lv WHERE path LIKE ?";
+            var params = [path + "/%"];
+            log.debug(sql, params);
+            conn.query(sql, params, function (err, res) {
+              if (err) {
+                log.debug("Error child deleting : %s ", err);
+                if (callback) callback(true, err);
+              }
+              else {
+                if (res.length > 0) {
+                  log.debug('Child deleting Completed.');
                 }
-                else {
-                  if (res.length > 0) {
-                    log.debug('Child deleting Completed.');
-                  }
-                  log.info('Deleting Completed.', path);
-                  if (callback) callback(false, res);
-                }
-                conn.release();
-              });
-            // }
+                log.info('Deleting Completed.', path);
+                if (callback) callback(false, res);
+              }
+              conn.release();
+            });
           }
         });
       }
