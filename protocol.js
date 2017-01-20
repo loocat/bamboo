@@ -487,9 +487,6 @@ var handleRequestPrimitive = function (msg) {
   var adjustRSP = (rsp) => {
     rsp.fr = cseID;
     if (!rsp.to) rsp.to = rqp.fr;
-    // if (rsp.pc && typeof rsp.pc !== 'string') {
-    //   rsp.pc = JSON.stringify(rsp.pc);
-    // }
     return rsp;
   };
 

@@ -280,7 +280,7 @@ var Binder = function () {
         password: r.password,
         incomingStore: new mqtt.Store(),
         outgoingStore: new mqtt.Store(),
-        clean: false
+        // clean: false
       };
     }
 
@@ -297,8 +297,7 @@ var Binder = function () {
     }
     
     var resolve = function (text) {
-      let id = '+';
-      let username, password;
+      let id, username, password;
 
       let parsed = text ? url.parse(text) : undefined;
       if (parsed) {
@@ -314,7 +313,7 @@ var Binder = function () {
         }
       }
 
-      let broker = _brokers[id];
+      let broker = _brokers[id || '+'];
       if (!broker) {
         if (parsed.host) {
           broker = url.format({
@@ -453,19 +452,21 @@ var Binder = function () {
     this.sendResponse = function (url, options, pc) {
 
       var resolved = resolve(url);
+      resolved.id = resolved.id || url;
       var incoming = getIncoming(resolved.id);
       if (!incoming[options.rqi]) {
         log.error('[UNKNOWN] RQI %s', options.rqi);
         return;
       }
 
+      let rqp = incoming[options.rqi].rqp;
       var rsp = {};
       for (var i in options) {
         rsp[i] = options[i];
       }
       if (pc) rsp.pc = pc;
       var message = JSON.stringify(rsp);
-      var topic = getTopicSend('resp', resolved.id, options.cty);
+      var topic = getTopicSend('resp', resolved.id, rqp.ac || rqp.cty);
       log.debug('[%s] %s', rsp.rqi, topic);
       _clients[resolved.broker].publish(topic, message);
 
@@ -558,15 +559,12 @@ var Binder = function () {
       });
     };
     
-    // this.getClient = (broker) => { return _clients[broker]; };
-    this.getClient = (broker) => { console.log(Object.keys(_clients)); return _clients[broker]; };
+    this.getClient = (broker) => { return _clients[broker]; };
     this.listen = listen;
     
     var diag = () => {
       var count = (obj) => {
-        var tmp = 0;
-        if (!!obj) for (var ii in obj) tmp++;
-        return tmp; 
+        return (obj ? Object.keys(obj).length : 0);
       };
       var first = true;
       for (var ii in _incoming) {
