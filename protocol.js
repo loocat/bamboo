@@ -1047,20 +1047,34 @@ var broadcastPrefix = '/oneM2M/cse/';
 var broadcast = function (broker, cse) {
   var cseTopic = broadcastPrefix + cse.csi;
 
-  var broadcast = function () {
+  var broadcast = () => {
     var msg = JSON.stringify(cse);
     log.info('[%s] broadcast <CSEBase> resource: ', logID, msg);
-    client.publish(cseTopic, msg, { retain: true });
+    broker.publish(cseTopic, msg, { retain: true });
   }
 
   // var client = require('mqtt').connect(broker);
-  var client = mqttAgent.getClient({broker: broker});
-  if (client) {
-    client.on('connect', function () {
-      client.subscribe(broadcastPrefix + '#');
-      broadcast();
-    });
-    client.on('message', function (top, msg) {
+  // if (client) {
+  //   client.on('connect', function () {
+  //     client.subscribe(broadcastPrefix + '#');
+  //     broadcast();
+  //   });
+  //   client.on('message', function (top, msg) {
+  //     if (cseTopic === top && (!msg || msg.length < 1)) {
+  //       broadcast();
+  //     }
+  //     else if (cseType !== m2m.code.getCseTypeID('IN_CSE')) {
+  //       var tmp = JSON.parse(msg.toString());
+  //       if (tmp && tmp.cst === m2m.code.getCseTypeID('IN_CSE') && tmp.rn === incse.rn) {
+  //         incse = tmp;
+  //         register(incse, cse);
+  //       }
+  //     }
+  //   });
+  // }
+  broadcast();
+  broker.subscribe(broadcastPrefix + '#', () => {
+    broker.on('message', (top, msg) => {
       if (cseTopic === top && (!msg || msg.length < 1)) {
         broadcast();
       }
@@ -1072,7 +1086,7 @@ var broadcast = function (broker, cse) {
         }
       }
     });
-  }
+  })
 }
 
 /**
@@ -1145,7 +1159,6 @@ exports.init = function (options) {
   var broker;
   for (var protocol in options.bind) {
     var bind = options.bind[protocol];
-    // var uri = protocol + "://" + bind.host + (bind.port ? ':' + bind.port : '');
 
     if (protocol === 'http') {
       bind.port = process.env.PORT || bind.port; // [heroku]
@@ -1153,21 +1166,23 @@ exports.init = function (options) {
       httpAgent.listen(bind.port, handleRequestPrimitive);
     }
     else if (protocol === 'mqtt') {
-      // let mqttOptions = {
-      //   username: bind.username,
-      //   password: bind.password,
-      //   share: require('querystring').parse(options.labels).share
-      // };
       let share = require('querystring').parse(options.labels).share;
-      let uri = process.env.CLOUDMQTT_URL; // [heroku]
-      if (!uri) uri = require('url').format({
+      let url = process.env.CLOUDMQTT_URL; // [heroku]
+      if (!url) url = require('url').format({
         slashes: true,
-        host: bind.host,
+        protocol: 'mqtt:',
+        hostname: bind.host,
         port: bind.port,
         auth: bind.username + ':' + bind.password
       });
       mqttAgent = new (require('./binder')).MqttBinder(options.id, {share: share});
-      mqttAgent.listen(uri, '+', handleRequestPrimitive);
+      mqttAgent.listen(url, '+', handleRequestPrimitive);
+
+      broker = mqttAgent.getClient((() => {
+        let tmp = require('url').parse(url);
+        if (tmp.auth) delete tmp.auth;
+        return require('url').format(tmp);
+      })());
     }
     else {
       throw new Error('[ERR] not supported \'point of access\' protocol: ' + protocol.name);
@@ -1223,7 +1238,7 @@ exports.init = function (options) {
         log.error('[%s] initialization failed', logID);
         throw new Error('initialization failure');
       }
-      if (mqttAgent) {
+      if (broker) {
         collectResource(rqp, csePath, (res) => {
           // announce CSEBase resource attributes
           broadcast(broker, res.cb);

@@ -320,7 +320,7 @@ var Binder = function () {
           broker = url.format({
             protocol: parsed.protocol || 'mqtt:',
             host: parsed.host,
-            slashed: true
+            slashes: true
           });
         }
         else {
@@ -378,6 +378,7 @@ var Binder = function () {
       return rqp;
     }
     
+    var topicRE = new RegExp('^' + options.topicClass + '/(req|resp)/*');
     var _incoming = {}; // incoming requests
     var _outgoing = {}; // outgoing requests
     var _clients = {}; // maps broker to client
@@ -501,7 +502,7 @@ var Binder = function () {
       } 
       client = getClient(resolved); 
       client.on('message', function (topic, message) {
-        m2m.util.processData(message, (msg) => {
+        if (topicRE.test(topic)) m2m.util.processData(message, (msg) => {
           // console.log(message.toString());
           // console.log(JSON.stringify(JSON.parse(message.toString()), null, ' '));
           // console.log(JSON.stringify(msg, null, ' '));
@@ -557,7 +558,8 @@ var Binder = function () {
       });
     };
     
-    this.getClient = (broker) => { return _clients[broker]; };
+    // this.getClient = (broker) => { return _clients[broker]; };
+    this.getClient = (broker) => { console.log(Object.keys(_clients)); return _clients[broker]; };
     this.listen = listen;
     
     var diag = () => {
