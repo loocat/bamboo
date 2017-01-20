@@ -41,7 +41,7 @@ exports.init = function (config, callback) {
     }
     dbPool = mysql.createPool(dbConfig);
     dbPool.getConnection(function (err, conn) {
-      if (!err) conn.release();
+      if (conn) conn.release();
       callback(err);
     });
   }
@@ -111,7 +111,7 @@ exports.create = function (lv, callback) {
     if (err) {
       log.debug('db connection failed.');
     }
-    else {
+    if (conn) {
       var sql = "INSERT INTO lv (";
       var first = true;
       var params = new Array();
@@ -172,7 +172,7 @@ exports.retrieve = function (path, fc, callback) {
     if (err) {
       log.debug('db connection failed.');
     }
-    else {
+    if (conn) {
       var sql;
       if (!fc || Object.keys(fc).length == 0) { // 필터조건이 없은 경우 단건 리소스 조회
         sql = util.format("SELECT * FROM lv WHERE %s = ?", hierarchical ? 'path' : 'resourceid');
@@ -202,16 +202,17 @@ exports.retrieve = function (path, fc, callback) {
             if (err) {
               log.debug("Error retrieving : %s ", err);
               if (callback) callback(true, err);
+              conn.release();
             }
             else {
               rowsWithoutCI = rows;
-              conn.release();
+              // conn.release();
 
-              dbPool.getConnection(function (err, conn) {
-                if (err) {
-                  log.debug('db connection failed.');
-                }
-                else {
+              // dbPool.getConnection(function (err, conn) {
+              //   if (err) {
+              //     log.debug('db connection failed.');
+              //   }
+              //   if (conn) {
                   sql = util.format("SELECT * FROM lv WHERE %s = ? AND resourcetype = 4", hierarchical ? 'parentpath' : 'parentid');
                   result = makeFC(path, fc, sql);
 
@@ -224,16 +225,16 @@ exports.retrieve = function (path, fc, callback) {
                       if (callback) callback(true, err);
                     }
                     else {
+                      log.debug('Retrieving Completed.');
                       if (rows && rows.length > 0) {
                         rowsWithoutCI.push(rows[0]);
                       }
                       if (callback) callback(false, rowsWithoutCI);
                     }
-                    log.debug('Retrieving Completed.');
                     conn.release();
                   });
-                }
-              });
+              //   }
+              // });
             }
           });
         }
@@ -273,7 +274,7 @@ exports.update = function (lv, fc, callback) {
     if (err) {
       log.debug('db connection failed.');
     }
-    else {
+    if (conn) {
       var sql;
       var first = true;
       var params = new Array();
@@ -361,7 +362,7 @@ exports.delete = function (path, fc, callback) {
     if (err) {
       log.debug('db connection failed.');
     }
-    else {
+    if (conn) {
       var sql;
       if (!fc || Object.keys(fc).length == 0) { // 필터조건이 없은 경우 단건 리소스 삭제
         sql = "DELETE FROM lv WHERE path = ?";
@@ -369,9 +370,10 @@ exports.delete = function (path, fc, callback) {
           if (err) {
             log.debug("Error deleting : %s ", err);
             if (callback) callback(true, err);
+            conn.release();
           }
           else {
-            for (var i = 1; i <= (9 - lc); i++) {
+            // for (var i = 1; i <= (9 - lc); i++) {
               sql = "DELETE FROM lv WHERE path LIKE ?";
               var params = [path + "/%"];
               log.debug(sql, params);
@@ -380,15 +382,17 @@ exports.delete = function (path, fc, callback) {
                   log.debug("Error child deleting : %s ", err);
                   if (callback) callback(true, err);
                 }
-                else if (res.length > 0) {
-                  log.debug('Child deleting Completed.');
+                else {
+                  if (res.length > 0) {
+                    log.debug('Child deleting Completed.');
+                  }
+                  log.info('Deleting Completed.', path);
+                  if (callback) callback(false, res);
                 }
+                conn.release();
               });
-            }
-            log.info('Deleting Completed.', path);
-            if (callback) callback(false, res);
+            // }
           }
-          conn.release();
         });
       }
       else { // 필터조건이 있는 경우 다건 리소스 삭제
@@ -429,7 +433,7 @@ exports.discovery = function (path, fc, rcn, drt, order, callback) {
     if (err) {
       log.debug('db connection failed.');
     }
-    else {
+    if (conn) {
       // 필터조건에 따른 다건 리소스 검색
       var sql;
       sql = util.format("SELECT %s FROM (SELECT get_lvl_lv(resourceid) AS resourceid, @level AS level FROM (SELECT @start_with:=%s, @resourceid:=@start_with, @level:=0) vars JOIN lv WHERE @resourceid IS NOT NULL) f JOIN lv d ON f.resourceid = d.resourceid",
@@ -635,7 +639,7 @@ module.exports.query = (sql, arr, cb) => {
     if (err) {
       log.debug('db connection failed.');
     }
-    else {
+    if (conn) {
       conn.query(sql, arr, function (err, rows) {
         cb(err, rows);
         conn.release();
