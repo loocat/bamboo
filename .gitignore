@@ -8,6 +8,7 @@ npm-debug.log
 *.svn
 *~
 .DS_Store
+log
 
 # Docker
 Dockerfile
