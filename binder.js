@@ -273,18 +273,16 @@ var Binder = function () {
     if (!options.topicClass) options.topicClass = '/oneM2M';
     else options.topicClass = ('/' + options.topicClass).replace('//', '/');
 
-    var clientOptions = function (id) {
+    var clientOptions = function (r) {
       return {
-        clientId: id,
-        clean: false,
+        clientId: r.id,
+        username: r.username,
+        password: r.password,
         incomingStore: new mqtt.Store(),
         outgoingStore: new mqtt.Store(),
-        username: options.username,
-        password: options.password
+        clean: false
       };
     }
-
-    console.log(clientOptions(myID));
 
     var qos = { subscribe: 1, publish: 1 };
 
@@ -299,9 +297,24 @@ var Binder = function () {
     }
     
     var resolve = function (text) {
-      var parsed = text ? url.parse(text) : undefined;
-      var cseid = (parsed && parsed.path) ? m2m.util.getCSERelativeAddress(m2m.util.path2addr(parsed.path), myID, parsed.host).split('/').pop() : '+';
-      var broker = _brokers[cseid];
+      let id = '+';
+      let username, password;
+
+      let parsed = text ? url.parse(text) : undefined;
+      if (parsed) {
+        if (parsed.path && parsed.host) {
+          id = m2m.util.getCSERelativeAddress(m2m.util.path2addr(parsed.path), myID, parsed.host).split('/').pop();
+        } 
+        if (parsed.auth) {
+          let arr = parsed.auth.split(':');
+          if (arr.length === 2) {
+            username = arr[0];
+            password = arr[1];
+          }
+        }
+      }
+
+      let broker = _brokers[id];
       if (!broker) {
         if (parsed.host) {
           broker = url.format({
@@ -312,13 +325,14 @@ var Binder = function () {
         }
         else {
           broker = _brokers['+'];
-        } 
+        }
       }
-      var res = {
+      return {
         broker: broker,
-        cseid: cseid
+        id: id,
+        username: username,
+        password: password
       };
-      return res;
     };
 
     this.getTopicSend = getTopicSend;
@@ -367,7 +381,7 @@ var Binder = function () {
     var _incoming = {}; // incoming requests
     var _outgoing = {}; // outgoing requests
     var _clients = {}; // maps broker to client
-    var _brokers = {}; // maps cseid to broker 
+    var _brokers = {}; // maps id to broker 
 
     var getIncoming = function (src) {
       if (!_incoming[src]) {
@@ -390,18 +404,18 @@ var Binder = function () {
 
       var resolved = resolve(poa);
       if (!poa) {
-        resolved.cseid = myID;
+        resolved.id = myID;
       }
       
-      var topic = getTopicSend('req', resolved.cseid, rqp.cty);
+      var topic = getTopicSend('req', resolved.id, rqp.cty);
       var client = getClient(resolved);
 
       if (client) client.publish(topic, msg, function () {
         // log.info('[%s] send %s', rqp.rqi, topic);
-        var outgoing = getOutgoing(resolved.cseid);
+        var outgoing = getOutgoing(resolved.id);
         if (!rqp || typeof rqp === 'undefiend') return;
         if (outgoing[rqp.rqi]) {
-          log.error('[DUPLICATED] RQI(%s) to CSEID(%s)', rqp.rqi, resolved.cseid);
+          log.error('[DUPLICATED] RQI(%s) to CSEID(%s)', rqp.rqi, resolved.id);
           throw new Error();
         }
         outgoing[rqp.rqi] = {
@@ -438,7 +452,7 @@ var Binder = function () {
     this.sendResponse = function (url, options, pc) {
 
       var resolved = resolve(url);
-      var incoming = getIncoming(resolved.cseid);
+      var incoming = getIncoming(resolved.id);
       if (!incoming[options.rqi]) {
         log.error('[UNKNOWN] RQI %s', options.rqi);
         return;
@@ -450,7 +464,7 @@ var Binder = function () {
       }
       if (pc) rsp.pc = pc;
       var message = JSON.stringify(rsp);
-      var topic = getTopicSend('resp', resolved.cseid, options.cty);
+      var topic = getTopicSend('resp', resolved.id, options.cty);
       log.debug('[%s] %s', rsp.rqi, topic);
       _clients[resolved.broker].publish(topic, message);
 
@@ -460,8 +474,8 @@ var Binder = function () {
     var getClient = function (r) {
       var client = _clients[r.broker]; 
       if (!client) {
-        var topic = (options.share ? '$share:' + myID + ':' : '') + getTopicReceive('+', r.target || '+');
-        client = mqtt.connect(r.broker, clientOptions(r.cseid));
+        var topic = (options.share ? '$share:' + myID + ':' : '') + getTopicReceive('+', r.target || '+');        
+        client = mqtt.connect(r.broker, clientOptions(r));
         client.on('connect', () => {
           client.subscribe(topic, {qos: qos.subscribe}, (err, granted) => {
             if (err) {
@@ -473,7 +487,7 @@ var Binder = function () {
           });
         });
         _clients[r.broker] = client;
-        _brokers[r.cseid || '+'] = r.broker;
+        _brokers[r.id || '+'] = r.broker;
       }
       return _clients[r.broker];
     };

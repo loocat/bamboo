@@ -1145,28 +1145,35 @@ exports.init = function (options) {
   var broker;
   for (var protocol in options.bind) {
     var bind = options.bind[protocol];
-    var uri = protocol + "://" + bind.host + (bind.port ? ':' + bind.port : '');
+    // var uri = protocol + "://" + bind.host + (bind.port ? ':' + bind.port : '');
 
     if (protocol === 'http') {
-      bind.port = process.env.PORT || bind.port;
+      bind.port = process.env.PORT || bind.port; // [heroku]
       httpAgent = new (require('./binder')).HttpBinder(options.id);
       httpAgent.listen(bind.port, handleRequestPrimitive);
     }
     else if (protocol === 'mqtt') {
-      let mqttOptions = {
-        username: bind.username,
-        password: bind.password,
-        share: require('querystring').parse(options.labels).share
-      };
-      mqttAgent = new (require('./binder')).MqttBinder(options.id, mqttOptions);
+      // let mqttOptions = {
+      //   username: bind.username,
+      //   password: bind.password,
+      //   share: require('querystring').parse(options.labels).share
+      // };
+      let share = require('querystring').parse(options.labels).share;
+      let uri = process.env.CLOUDMQTT_URL; // [heroku]
+      if (!uri) uri = require('url').format({
+        slashes: true,
+        host: bind.host,
+        port: bind.port,
+        auth: bind.username + ':' + bind.password
+      });
+      mqttAgent = new (require('./binder')).MqttBinder(options.id, {share: share});
       mqttAgent.listen(uri, '+', handleRequestPrimitive);
-      broker = uri;
     }
     else {
       throw new Error('[ERR] not supported \'point of access\' protocol: ' + protocol.name);
     }
 
-    poa.push(uri);
+    poa.push(protocol + "://" + bind.host + (bind.port ? ':' + bind.port : ''));
   }
 
   var rqp = {
@@ -1216,7 +1223,7 @@ exports.init = function (options) {
         log.error('[%s] initialization failed', logID);
         throw new Error('initialization failure');
       }
-      if (broker) {
+      if (mqttAgent) {
         collectResource(rqp, csePath, (res) => {
           // announce CSEBase resource attributes
           broadcast(broker, res.cb);
