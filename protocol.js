@@ -529,7 +529,11 @@ var handleRequestPrimitive = function (msg) {
     };
     crud.operation(tmp, function (rsp) {
       if (rsp && rsp.pc && rsp.pc.length > 0) {
-        rqp.to = getLocalAddress(rsp.pc[0]);
+        let eee = rsp.pc[0];
+        if (typeof eee !== 'string') {
+          eee = eee[Object.keys(eee)[0]].path;
+        }
+        rqp.to = getLocalAddress(eee);
         rqp.ty = tmp.fc.ty;
       }
       callback(rqp);
