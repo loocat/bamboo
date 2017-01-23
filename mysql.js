@@ -39,6 +39,14 @@ exports.init = function (config, callback) {
       if (config.database) { dbConfig.database = config.database; }
       if (config.connectionLimit) { dbConfig.connectionLimit = config.connectionLimit; }
     }
+    if (process.env.CLEARDB_DATABASE_URL) { // [heroku]
+      let parsed = require('url').parse(process.env.CLEARDB_DATABASE_URL);
+      if (parsed.host) { dbConfig.host = parsed.host; }
+      if (parsed.port) { dbConfig.port = parsed.port; }
+      if (parsed.username) { dbConfig.user = parsed.username; }
+      if (parsed.password) { dbConfig.password = parsed.password; }
+      if (parsed.pathname) { dbConfig.database = parsed.pathname.replace(/^\//, ''); }
+    }
     dbPool = mysql.createPool(dbConfig);
     dbPool.getConnection(function (err, conn) {
       if (conn) conn.release();
