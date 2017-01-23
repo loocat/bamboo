@@ -1082,8 +1082,10 @@ exports.init = function (options) {
   //
   // set spID, cseID
   //
-  spID = options.sp;
-  cseID = options.id;
+  spID = process.env.CSE_SP || options.sp; // [heroku]
+  cseID = process.env.CSE_ID || options.id; // [heroku]
+  let cseName = process.env.CSE_NAME || options.name; // [heroku]
+  let inpoa = process.env.CSE_INPOA || options.inpoa; // [heroku]
 
   //
   // set cseType
@@ -1091,7 +1093,7 @@ exports.init = function (options) {
   if (options.type) {
     cseType = +options.type || m2m.code.getCseTypeID(options.type);
   }
-  if (!options.inpoa) {
+  if (!inpoa) {
     if (cseType && cseType !== m2m.code.getCseTypeID('IN_CSE')) {
       throw new Error('[ERR] missing IN_CSE URL');
     }
@@ -1104,23 +1106,23 @@ exports.init = function (options) {
   //
   // set csePath
   //
-  if (isEmptyString(options.name)) {
+  if (isEmptyString(cseName)) {
     throw new Error('[ERR] \'' + m2m.code.getCseTypeID(cseType) + ' name\' is not given');
   }
-  csePath = util.format('%s', options.name);
+  csePath = util.format('%s', cseName);
 
   //
   // check infrastructure node information
   //
-  if (options.inpoa) {
-    incse = parsePOA(options.inpoa);
+  if (inpoa) {
+    incse = parsePOA(inpoa);
     if (!incse.rn) {
       // IN_CSE name is not given
-      throw new Error('[ERR] \'IN_CSE name\' is not given: ' + inpoa.poa);
+      throw new Error('[ERR] \'IN_CSE name\' is not given: ' + inpoa);
     }
-    if (options.name === incse.rn) {
+    if (cseName === incse.rn) {
       // MN_CSE(or ASN_CSE) name should be different from IN_CSE name
-      throw new Error('[ERR] \'' + m2m.code.getCseTypeID(cseType) + ' name\' is identical to ' + options.name + ' the name of IN_CSE');
+      throw new Error('[ERR] \'' + m2m.code.getCseTypeID(cseType) + ' name\' is identical to ' + cseName + ' the name of IN_CSE');
     }
   }
 
@@ -1139,8 +1141,9 @@ exports.init = function (options) {
     var bind = options.bind[protocol];
 
     if (protocol === 'http') {
+      bind.host = process.env.CSE_SP || bind.host; // [heroku]
       bind.port = process.env.PORT || bind.port; // [heroku]
-      httpAgent = new (require('./binder')).HttpBinder(options.id);
+      httpAgent = new (require('./binder')).HttpBinder(cseID);
       httpAgent.listen(bind.port, handleRequestPrimitive);
     }
     else if (protocol === 'mqtt') {
@@ -1172,19 +1175,19 @@ exports.init = function (options) {
   var rqp = {
     rqi: m2m.util.createRequestID(),
     op: m2m.code.getOperation('Retrieve'),
-    fr: options.id,
+    fr: cseID,
     to: csePath,
     ty: m2m.code.getResourceType('CSEBase'),
     pc: {}
   };
 
   var obj = {
-    csi: options.id,
+    csi: cseID,
     cst: cseType,
     srt: options.srt || getSrt(),
     poa: poa.join(' '),
     lbl: options.labels,
-    cb: '//' + options.sp + '/' + options.id
+    cb: '//' + spID + '/' + cseID
   };
 
   rqp.pc[m2m.name.getShort('CSEBase')] = obj;
@@ -1200,7 +1203,7 @@ exports.init = function (options) {
     else {
       rqp.op = m2m.code.getOperation('Create');
       rqp.to = '';
-      obj.rn = options.name;
+      obj.rn = cseName;
     }
 
     rqp.rqi = m2m.util.createRequestID();
