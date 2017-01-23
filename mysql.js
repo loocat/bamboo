@@ -43,8 +43,11 @@ exports.init = function (config, callback) {
       let parsed = require('url').parse(process.env.CLEARDB_DATABASE_URL);
       if (parsed.host) { dbConfig.host = parsed.host; }
       if (parsed.port) { dbConfig.port = parsed.port; }
-      if (parsed.username) { dbConfig.user = parsed.username; }
-      if (parsed.password) { dbConfig.password = parsed.password; }
+      if (parsed.auth) {
+        parsed.auth = parsed.auth.split(':');
+        dbConfig.user = parsed.auth[0];
+        dbConfig.password = parsed.auth[1];
+      }
       if (parsed.pathname) { dbConfig.database = parsed.pathname.replace(/^\//, ''); }
     }
     dbPool = mysql.createPool(dbConfig);
