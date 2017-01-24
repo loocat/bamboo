@@ -30,7 +30,7 @@ CREATE TABLE lv (
   aeid varchar(45) DEFAULT NULL,
   ontologyref varchar(45) DEFAULT NULL,
   statetag int DEFAULT NULL,
-  creator varchar(45) DEFAULT NULL,
+  creator varchar(255) DEFAULT NULL,
   maxnrofinstances int DEFAULT NULL,
   maxbytesize int DEFAULT NULL,
   maxinstanceage int DEFAULT NULL,

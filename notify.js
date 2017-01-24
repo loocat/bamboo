@@ -189,6 +189,7 @@ exports.postprocess = function (rqp, rsp) {
     }
 
     var msg = (Array.isArray(rsp.pc) && rsp.pc.length === 1) ? rsp.pc[0] : rsp.pc;
+    if (msg.path) delete msg.path;
     
     // get subscriptions
     tmpReq.to = rqp.to;
