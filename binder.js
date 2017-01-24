@@ -311,7 +311,6 @@ var Binder = function () {
             console.log(text);
             console.log(m2m.util.path2addr(parsed.path));
             console.log(myID);
-            console.log(m2m.util.getCSERelativeAddress(m2m.util.path2addr(parsed.path), myID, parsed.host));
             throw e;
           }
         } 
@@ -352,7 +351,6 @@ var Binder = function () {
 
       if (!rqp.fr) rqp.fr = myID;
       if (!rqp.rqi) rqp.rqi = m2m.util.createRequestID();
-      if (!rqp.cty) rqp.cty = getAccess(rqp.ac);
 
       if (typeof rqp.ty === 'number') {
         if (rqp.op === 'Create' || rqp.op === 'Update') {
@@ -410,6 +408,9 @@ var Binder = function () {
 
     this.sendRQP = (poa, rqp, callback) => {
 
+      let cty = getAccess(rqp.cty || rqp.ac);
+      if (rqp.cty) delete rqp.cty;
+
       rqp = setup(rqp);
       var msg = JSON.stringify(rqp);
 
@@ -420,8 +421,8 @@ var Binder = function () {
       if (!resolved.id) {
         resolved.id = rqp.to.split('/')[1];
       }
-      
-      var topic = getTopicSend('req', resolved.id, rqp.cty);
+
+      var topic = getTopicSend('req', resolved.id, cty);
       var client = getClient(resolved);
 
       if (client) client.publish(topic, msg, function () {
