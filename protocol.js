@@ -972,10 +972,10 @@ var register = (incse, cse) => {
         to: '/' + incse.csi + '/' + incse.rn + '/' + cse.rn
       };
       agent.sendRQP(url, rqp, (err, rsp) => {
-        if (!err) {
-          log.info('[%s] %s %s... %s', logID, m2m.code.getOperation(rqp.op), rqp.to, m2m.code.getResponseStatusCode(+rsp.rsc));
+        if (!err && rsp.rsc) {
+          log.info('[%s] %s %s... %s', logID, m2m.code.getOperation(rqp.op), rqp.to, m2m.code.getResponseStatusCode(rsp.rsc));
         }
-        callback(err, agent, rqp, rsp);
+        callback(err || !rsp.rsc, agent, rqp, rsp);
       });
     },
     (agent, rqp, rsp, callback) => {
