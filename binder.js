@@ -303,7 +303,15 @@ var Binder = function () {
       let parsed = text ? url.parse(text) : undefined;
       if (parsed) {
         if (parsed.path && parsed.host) {
-          id = m2m.util.getCSERelativeAddress(m2m.util.path2addr(parsed.path), myID, parsed.host).split('/').pop();
+          try {
+            id = m2m.util.getCSERelativeAddress(m2m.util.path2addr(parsed.path), myID, parsed.host).split('/').pop();
+          }
+          catch (e) {
+            console.log(parsed);
+            console.log(text);
+            console.log(m2m.util.getCSERelativeAddress(m2m.util.path2addr(parsed.path), myID, parsed.host));
+            throw e;
+          }
         } 
         if (parsed.auth) {
           let arr = parsed.auth.split(':');
