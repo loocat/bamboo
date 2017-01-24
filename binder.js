@@ -309,6 +309,8 @@ var Binder = function () {
           catch (e) {
             console.log(parsed);
             console.log(text);
+            console.log(m2m.util.path2addr(parsed.path));
+            console.log(myID);
             console.log(m2m.util.getCSERelativeAddress(m2m.util.path2addr(parsed.path), myID, parsed.host));
             throw e;
           }
