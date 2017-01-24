@@ -1160,7 +1160,7 @@ exports.init = function (options) {
         port: bind.port,
         auth: bind.username + ':' + bind.password
       });
-      mqttAgent = new (require('./binder')).MqttBinder(options.id, {share: share});
+      mqttAgent = new (require('./binder')).MqttBinder(cseID, {share: share});
       mqttAgent.listen(url, '+', handleRequestPrimitive);
 
       broker = mqttAgent.getClient((() => {
