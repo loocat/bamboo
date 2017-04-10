@@ -124,7 +124,9 @@ var scheduleManagementTasks = function (mgmt) {
       };
     },
     ping: function (period) {
-      if (!period) period = { second: new schedule.Range(0, 50, 10) };
+      this.rule = { second: new schedule.Range(0, 50, 10) };
+      console.log(this.rule);
+      this.act = () => { console.log(moment.now()); }
       // gather POA of in-cse and mn-cse(s)
       // retrieve attributes of each cse via http binding
     }

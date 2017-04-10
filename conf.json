@@ -22,10 +22,11 @@
       },
       "mgmt": {
         "rules": {
-          "retain": { "day": 14 }
+          "retain": { "day": 14 },
+          "ping": true
         }
       },
-      "labels": "daq=false&mgmt=false"
+      "labels": "daq=false&mgmt=true"
     },
     "db": "MySQL",
     "MySQL": {
