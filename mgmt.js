@@ -123,6 +123,11 @@ var scheduleManagementTasks = function (mgmt) {
         });
       };
     },
+    ping: function (period) {
+      if (!period) period = { second: new schedule.Range(0, 50, 10) };
+      // gather POA of in-cse and mn-cse(s)
+      // retrieve attributes of each cse via http binding
+    }
   };
 
   var rules = mgmt.rules;
