@@ -1,4 +1,3 @@
-
 var tree = process.argv[2] || './tree.json';
 var m2m = require('onem2m');
 var name = m2m.name;
